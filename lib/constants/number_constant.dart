@@ -13,6 +13,9 @@ class NumberConstant {
   static const cardRadius = 16.0;
   static const coverRadius = 12.0;
   static const pillRadius = 100.0;
+  static const tileCoverSize = 64.0;
+  static const tileGap = 12.0;
+  static const saveIconPadding = 8.0;
   static const popularCardWidthFactor = 0.54;
   static const welcomeMicWidthFactor = 0.6;
   static const playerArtWidthFactor = 0.65;

@@ -19,4 +19,6 @@ class AssetRes {
   static const icExplore = '${_svgsPath}ic_explore.svg';
   static const icFavorites = '${_svgsPath}ic_favorites.svg';
   static const icSettings = '${_svgsPath}ic_settings.svg';
+  static const icSave = '${_svgsPath}ic_save.svg';
+  static const icClock = '${_svgsPath}ic_clock.svg';
 }
