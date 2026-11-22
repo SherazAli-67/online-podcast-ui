@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:online_podcast_app_ui/presentation/providers/discover_provider.dart';
+import 'package:online_podcast_app_ui/presentation/providers/player_provider.dart';
 import 'package:online_podcast_app_ui/presentation/screens/discover_screen.dart';
 import 'package:online_podcast_app_ui/presentation/screens/now_playing_screen.dart';
 import 'package:online_podcast_app_ui/presentation/screens/profile_screen.dart';
@@ -16,7 +17,10 @@ GoRouter router = GoRouter(
     ),
     GoRoute(
       path: NamedRoutes.nowPlaying.routeName,
-      builder: (_, state) => NowPlayingScreen(episodeId: state.pathParameters['id'] ?? '',),
+      builder: (_, state) => ChangeNotifierProvider(
+        create: (_) => PlayerProvider(episodeId: state.pathParameters['id'] ?? '',),
+        child: const NowPlayingScreen(),
+      ),
     ),
     GoRoute(path: NamedRoutes.profile.routeName, builder: (_, state) => const ProfileScreen()),
   ],

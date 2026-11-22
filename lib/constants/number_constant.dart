@@ -35,5 +35,11 @@ class NumberConstant {
   static const indicatorWidthFactor = 0.3;
   static const indicatorHeight = 4.0;
   static const bottomNavTopGap = 12.0;
+  static const playButtonPadding = 20.0;
+  static const playerControlPadding = 8.0;
+  static const playerArtRadius = 28.0;
+  static const progressThumbRadius = 8.0;
+  static const progressTrackHeight = 4.0;
 }
+
 

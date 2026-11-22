@@ -26,4 +26,12 @@ class AssetRes {
   static const icUser = '${_svgsPath}ic_user.svg';
   static const icBookmarkNav = '${_svgsPath}ic_bookmark_nav.svg';
   static const icDiscover = '${_svgsPath}ic_discover.svg';
+  static const icShare = '${_svgsPath}ic_share.svg';
+  static const icPlay = '${_svgsPath}ic_play.svg';
+  static const icPause = '${_svgsPath}ic_pause.svg';
+  static const icNext = '${_svgsPath}ic_next.svg';
+  static const icPrevious = '${_svgsPath}ic_previous.svg';
+  static const icRepeat = '${_svgsPath}ic_repeat.svg';
+  static const icCut = '${_svgsPath}ic_cut.svg';
 }
+

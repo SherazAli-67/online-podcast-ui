@@ -15,9 +15,15 @@ class PlayerProvider extends ChangeNotifier {
 
   bool get isRepeat => _isRepeat;
 
+  String get listenedLabel => podcast.listened.isEmpty ? '0 Listened' : podcast.listened;
+
+  String get currentTimeLabel => podcast.currentTime.isEmpty ? '0:00' : podcast.currentTime;
+
+  String get totalTimeLabel => podcast.totalTime.isEmpty ? '23:00' : podcast.totalTime;
+
   double get progress {
-    final current = _secondsFromLabel(podcast.currentTime);
-    final total = _secondsFromLabel(podcast.totalTime);
+    final current = _secondsFromLabel(currentTimeLabel);
+    final total = _secondsFromLabel(totalTimeLabel);
     if (total <= 0) return 0;
     return (current / total).clamp(0.0, 1.0);
   }

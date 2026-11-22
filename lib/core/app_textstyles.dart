@@ -117,4 +117,23 @@ class AppTextStyles {
     letterSpacing: 0.6,
     color: AppColors.titleColor,
   );
+
+  static const playerTitle = TextStyle(
+    fontFamily: StringConst.appFontFamily,
+    fontWeight: .w600,
+    fontSize: 20,
+    height: 1.5,
+    letterSpacing: 0.6,
+    color: AppColors.titleColor,
+  );
+
+  static const playerMeta = TextStyle(
+    fontFamily: StringConst.appFontFamily,
+    fontWeight: .w500,
+    fontSize: 14,
+    height: 1.5,
+    letterSpacing: 0.4,
+    color: AppColors.mutedColor,
+  );
 }
+
