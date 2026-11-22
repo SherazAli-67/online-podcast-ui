@@ -83,6 +83,16 @@ class AppTextStyles {
     color: AppColors.hintColor,
   );
 
+  static const chipSubtle = TextStyle(
+    fontFamily: StringConst.appFontFamily,
+    fontWeight: .w600,
+    fontSize: 14,
+    height: 1.4,
+    letterSpacing: 0.3,
+    color: AppColors.subtleColor,
+  );
+
+
   static const searchHint = TextStyle(
     fontFamily: StringConst.appFontFamily,
     fontWeight: .w500,

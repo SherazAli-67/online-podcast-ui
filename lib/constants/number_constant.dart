@@ -40,6 +40,11 @@ class NumberConstant {
   static const playerArtRadius = 28.0;
   static const progressThumbRadius = 8.0;
   static const progressTrackHeight = 4.0;
+  static const avatarBorderWidth = 2.0;
+  static const followPaddingHorizontal = 28.0;
+  static const followPaddingVertical = 10.0;
+  static const profileInfoGap = 12.0;
 }
+
 
 
