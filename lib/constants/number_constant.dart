@@ -28,4 +28,12 @@ class NumberConstant {
   static const avatarWidthFactor = 0.22;
   static const popularCoverAspectRatio = 1.63;
   static const playerArtAspectRatio = 0.81;
+  static const popularCardGap = 16.0;
+  static const searchFieldPadding = 16.0;
+  static const searchButtonPadding = 16.0;
+  static const navIconPadding = 10.0;
+  static const indicatorWidthFactor = 0.3;
+  static const indicatorHeight = 4.0;
+  static const bottomNavTopGap = 12.0;
 }
+
