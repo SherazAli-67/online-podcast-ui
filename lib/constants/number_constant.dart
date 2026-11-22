@@ -18,6 +18,12 @@ class NumberConstant {
   static const saveIconPadding = 8.0;
   static const popularCardWidthFactor = 0.54;
   static const welcomeMicWidthFactor = 0.6;
+  static const welcomeHeroFlex = 3;
+  static const welcomeContentFlex = 2;
+  static const welcomeMicTopFactor = 0.28;
+  static const welcomeMicRightFactor = 0.02;
+  static const welcomeGradientHeight = 120.0;
+
   static const playerArtWidthFactor = 0.65;
   static const avatarWidthFactor = 0.22;
   static const popularCoverAspectRatio = 1.63;
