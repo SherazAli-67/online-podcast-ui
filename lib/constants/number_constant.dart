@@ -58,6 +58,11 @@ class NumberConstant {
   static const welcomeMicFloatMs = 2400;
   static const welcomeCtaPressScale = 0.96;
   static const welcomeMicAngleDeg = 4.39;
+  static const playerCoverPulseScale = 1.02;
+  static const playerCoverPulseMs = 500;
+  static const playerProgressTickMs = 500;
+  static const playerProgressStep = 0.008;
+  static const playButtonBounceScale = 0.92;
 }
 
 
