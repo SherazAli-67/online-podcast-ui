@@ -50,15 +50,15 @@ class DiscoverScreen extends StatelessWidget {
           child: Padding(
             padding: .all(NumberConstant.navIconPadding),
             //icBack
-            child: const SizedBox()
+            child: SvgPicture.asset(AssetRes.icBack)
           ),
         ),
         //StringConst.discover
-        Expanded(child: Text('', style: AppTextStyles.screenTitle, textAlign: .center,),),
+        Expanded(child: Text(StringConst.discover, style: AppTextStyles.screenTitle, textAlign: .center,),),
         Padding(
           padding: .all(NumberConstant.navIconPadding),
           //icMore, whiteColor
-          child: const SizedBox(),
+          child: SvgPicture.asset(AssetRes.icMore, colorFilter: .mode(Colors.white, .srcIn),)
         ),
       ],
     );
@@ -75,11 +75,11 @@ class DiscoverScreen extends StatelessWidget {
             cursorColor: AppColors.primaryColor,
             decoration: InputDecoration(
               //StringConst.searchTopics
-              hintText: '',
+              hintText: StringConst.searchTopics,
               hintStyle: AppTextStyles.searchHint,
               filled: true,
               //searchFillColor
-              fillColor: Colors.transparent,
+              fillColor: AppColors.searchFillColor,
               border: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
               enabledBorder: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
               focusedBorder: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
@@ -90,12 +90,12 @@ class DiscoverScreen extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             //primaryColor
-            color: Colors.transparent,
+            color: AppColors.primaryColor,
             borderRadius: .circular(NumberConstant.searchRadius),
           ),
           padding: .all(NumberConstant.searchButtonPadding),
           //icSearch
-          child: const SizedBox()
+          child: SvgPicture.asset(AssetRes.icSearch)
         ),
       ],
     );
@@ -123,9 +123,9 @@ class DiscoverScreen extends StatelessWidget {
           spacing: NumberConstant.listGap,
           crossAxisAlignment: .start,
           children: [
-            // SectionHeader(title: StringConst.popular,),
+            SectionHeader(title: StringConst.popular,),
             _buildPopularList(context, provider.popularPodcasts),
-            // SectionHeader(title: StringConst.writing,),
+            SectionHeader(title: StringConst.writing,),
             ...provider.writingPodcasts.map((podcast) => PodcastTile(
               podcast: podcast,
               onTap: () => context.push(NamedRoutes.nowPlaying.withId(podcast.id)),
@@ -163,21 +163,21 @@ class DiscoverScreen extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: .circular(NumberConstant.coverRadius),
                 //podcast.cover
-                child: const SizedBox(),
+                child: Image.asset(podcast.cover, fit: .cover,)
               ),
             ),
             Row(
               spacing: 6,
               children: [
-                // SvgPicture.asset(AssetRes.icHeadphones, colorFilter: .mode(AppColors.primaryColor, .srcIn),),
+                SvgPicture.asset(AssetRes.icHeadphones, colorFilter: .mode(AppColors.primaryColor, .srcIn),),
                 //podcast.listened, meta
-                Expanded(child: const SizedBox()),
+                Expanded(child: Text(podcast.listened, style: AppTextStyles.meta,)),
               ],
             ),
             //podcast.title, cardTitle,
-            Text('', style: AppTextStyles.cardTitle, maxLines: 1, overflow: .ellipsis,),
+            Text(podcast.title, style: AppTextStyles.cardTitle, maxLines: 1, overflow: .ellipsis,),
             //podcast.author
-            Text('', style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
+            Text(podcast.author, style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
           ],
         ),
       ),

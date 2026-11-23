@@ -25,11 +25,11 @@ class CategoryChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          // color: isSelected ? AppColors.primaryColor : (idleColor ?? AppColors.chipIdleColor),
+          color: isSelected ? AppColors.primaryColor : (idleColor ?? AppColors.chipIdleColor),
           borderRadius: .circular(NumberConstant.pillRadius),
         ),
         padding: .symmetric(horizontal: NumberConstant.chipPaddingHorizontal, vertical: NumberConstant.chipPaddingVertical),
-        // child: Text(label, style: isSelected ? AppTextStyles.chip : (idleTextStyle ?? AppTextStyles.chipIdle),),
+        child: Text(label, style: isSelected ? AppTextStyles.chip : (idleTextStyle ?? AppTextStyles.chipIdle),),
       ),
     );
   }

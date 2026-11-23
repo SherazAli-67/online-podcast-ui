@@ -44,6 +44,15 @@ class NumberConstant {
   static const followPaddingHorizontal = 28.0;
   static const followPaddingVertical = 10.0;
   static const profileInfoGap = 12.0;
+
+  static const animFastMs = 200;
+  static const animNormalMs = 350;
+  static const animStaggerMs = 80;
+  static const animEntranceOffsetY = 16.0;
+  static const welcomeMicFloatPx = 8.0;
+  static const welcomeMicFloatMs = 2400;
+  static const welcomeCtaPressScale = 0.96;
+  static const welcomeMicAngleDeg = 4.39;
 }
 
 
