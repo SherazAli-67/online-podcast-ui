@@ -49,13 +49,16 @@ class DiscoverScreen extends StatelessWidget {
           onTap: () => context.go(NamedRoutes.welcome.routeName),
           child: Padding(
             padding: .all(NumberConstant.navIconPadding),
-            child: SvgPicture.asset(AssetRes.icBack, colorFilter: .mode(AppColors.whiteColor, .srcIn),),
+            //icBack
+            child: const SizedBox()
           ),
         ),
-        Expanded(child: Text(StringConst.discover, style: AppTextStyles.screenTitle, textAlign: .center,),),
+        //StringConst.discover
+        Expanded(child: Text('', style: AppTextStyles.screenTitle, textAlign: .center,),),
         Padding(
           padding: .all(NumberConstant.navIconPadding),
-          child: SvgPicture.asset(AssetRes.icMore, colorFilter: .mode(AppColors.whiteColor, .srcIn),),
+          //icMore, whiteColor
+          child: const SizedBox(),
         ),
       ],
     );
@@ -71,10 +74,12 @@ class DiscoverScreen extends StatelessWidget {
             style: AppTextStyles.searchHint.copyWith(color: AppColors.titleColor),
             cursorColor: AppColors.primaryColor,
             decoration: InputDecoration(
-              hintText: StringConst.searchTopics,
+              //StringConst.searchTopics
+              hintText: '',
               hintStyle: AppTextStyles.searchHint,
               filled: true,
-              fillColor: AppColors.searchFillColor,
+              //searchFillColor
+              fillColor: Colors.transparent,
               border: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
               enabledBorder: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
               focusedBorder: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
@@ -84,11 +89,13 @@ class DiscoverScreen extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            //primaryColor
+            color: Colors.transparent,
             borderRadius: .circular(NumberConstant.searchRadius),
           ),
           padding: .all(NumberConstant.searchButtonPadding),
-          child: SvgPicture.asset(AssetRes.icSearch, colorFilter: .mode(AppColors.blackColor, .srcIn),),
+          //icSearch
+          child: const SizedBox()
         ),
       ],
     );
@@ -102,8 +109,8 @@ class DiscoverScreen extends StatelessWidget {
         children: AppData.discoverCategories.map((category) => CategoryChip(
           label: category,
           isSelected: provider.selectedCategory == category,
-          onTap: () => provider.selectCategory(category),
-        ),).toList(),
+          onTap: () => provider.selectCategory(category),),
+        ).toList(),
       ),
     );
   }
@@ -116,9 +123,9 @@ class DiscoverScreen extends StatelessWidget {
           spacing: NumberConstant.listGap,
           crossAxisAlignment: .start,
           children: [
-            SectionHeader(title: StringConst.popular,),
+            // SectionHeader(title: StringConst.popular,),
             _buildPopularList(context, provider.popularPodcasts),
-            SectionHeader(title: StringConst.writing,),
+            // SectionHeader(title: StringConst.writing,),
             ...provider.writingPodcasts.map((podcast) => PodcastTile(
               podcast: podcast,
               onTap: () => context.push(NamedRoutes.nowPlaying.withId(podcast.id)),
@@ -155,18 +162,22 @@ class DiscoverScreen extends StatelessWidget {
               aspectRatio: NumberConstant.popularCoverAspectRatio,
               child: ClipRRect(
                 borderRadius: .circular(NumberConstant.coverRadius),
-                child: Image.asset(podcast.cover, fit: .cover, width: double.infinity,),
+                //podcast.cover
+                child: const SizedBox(),
               ),
             ),
             Row(
               spacing: 6,
               children: [
-                SvgPicture.asset(AssetRes.icHeadphones, colorFilter: .mode(AppColors.primaryColor, .srcIn),),
-                Expanded(child: Text(podcast.listened, style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),),
+                // SvgPicture.asset(AssetRes.icHeadphones, colorFilter: .mode(AppColors.primaryColor, .srcIn),),
+                //podcast.listened, meta
+                Expanded(child: const SizedBox()),
               ],
             ),
-            Text(podcast.title, style: AppTextStyles.cardTitle, maxLines: 1, overflow: .ellipsis,),
-            Text(podcast.author, style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
+            //podcast.title, cardTitle,
+            Text('', style: AppTextStyles.cardTitle, maxLines: 1, overflow: .ellipsis,),
+            //podcast.author
+            Text('', style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
           ],
         ),
       ),

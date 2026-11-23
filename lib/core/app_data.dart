@@ -54,6 +54,22 @@ class AppData {
       category: StringConst.writing,
       duration: '53 Minutes',
     ),
+    PodcastModel(
+      id: 'heavyweight',
+      title: 'Heavyweight - The complete journey',
+      author: 'Jonathan Goldstein',
+      cover: AssetRes.heavyweightCover,
+      category: StringConst.writing,
+      duration: '53 Minutes',
+    ),
+    PodcastModel(
+      id: 'heavyweight',
+      title: 'Heavyweight - The complete journey',
+      author: 'Jonathan Goldstein',
+      cover: AssetRes.heavyweightCover,
+      category: StringConst.writing,
+      duration: '53 Minutes',
+    ),
   ];
 
   static const nowPlayingPodcast = PodcastModel(

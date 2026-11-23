@@ -32,7 +32,8 @@ class WelcomeScreen extends StatelessWidget {
                 width: constraints.maxWidth * NumberConstant.welcomeMicWidthFactor,
                 child: Transform.rotate(
                   angle: 4.39 * math.pi / 180,
-                  child: Image.asset(AssetRes.micImg, fit: .contain,),
+                  //micImg, fit.contain
+                  child: const SizedBox()
                 ),
               ),
             ),
@@ -46,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
     return Stack(
       fit: .expand,
       children: [
-        Image.asset(AssetRes.welcomeImg, fit: .cover, width: double.infinity,),
+        //welcomeImg, width.infinity, fit.cover
         Align(
           alignment: .bottomCenter,
           child: Container(
@@ -56,8 +57,8 @@ class WelcomeScreen extends StatelessWidget {
                 begin: .topCenter,
                 end: .bottomCenter,
                 colors: [
-                  AppColors.backgroundColor.withValues(alpha: 0),
-                  AppColors.backgroundColor,
+                  // AppColors.backgroundColor.withValues(alpha: 0),
+                  // AppColors.backgroundColor,
                 ],
               ),
             ),
@@ -74,9 +75,9 @@ class WelcomeScreen extends StatelessWidget {
         spacing: NumberConstant.sectionGap,
         mainAxisAlignment: .center,
         children: [
-          Text(StringConst.learnNewThings, style: AppTextStyles.welcomeTitle, textAlign: .center,),
-          Text(StringConst.welcomeSubtitle, style: AppTextStyles.welcomeSubtitle, textAlign: .center,),
-          _buildGetStartedButton(context),
+          //learnNewThings, welcomeTitle, textAlign.center
+          //welcomeSubtitle, welcomeSubtitle, textAlign.center
+          // _buildGetStartedButton(context),
         ],
       ),
     );

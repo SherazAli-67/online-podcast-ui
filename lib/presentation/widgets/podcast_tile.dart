@@ -25,7 +25,7 @@ class PodcastTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.cardColor,
+          // color: AppColors.cardColor,
           borderRadius: .circular(NumberConstant.cardRadius),
         ),
         padding: .all(NumberConstant.tileGap),
@@ -34,27 +34,30 @@ class PodcastTile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: .circular(NumberConstant.coverRadius),
-              child: Image.asset(podcast.cover, width: NumberConstant.tileCoverSize, height: NumberConstant.tileCoverSize, fit: .cover,),
+              // child: Image.asset(podcast.cover, width: NumberConstant.tileCoverSize, height: NumberConstant.tileCoverSize, fit: .cover,),
             ),
             Expanded(
               child: Column(
                 spacing: 6,
                 crossAxisAlignment: .start,
                 children: [
-                  Text(podcast.title, style: AppTextStyles.cardTitle, maxLines: 2, overflow: .ellipsis,),
-                  Text(podcast.author, style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
+                  //podcast.title
+                  Text('', style: AppTextStyles.cardTitle, maxLines: 2, overflow: .ellipsis,),
+                  //podcast.author
+                  Text('', style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
                   if (podcast.duration.isNotEmpty)
                     Row(
                       spacing: 6,
                       children: [
-                        SvgPicture.asset(AssetRes.icClock, colorFilter: .mode(AppColors.mutedColor, .srcIn),),
-                        Text(podcast.duration, style: AppTextStyles.meta,),
+                        //icClock, mutedColor
+                        const SizedBox(),
+                        //podcast.duration, meta
                       ],
                     ),
                 ],
               ),
             ),
-            GestureDetector(
+           /* GestureDetector(
               onTap: () => context.read<PodcastLibraryProvider>().toggleSave(podcast.id),
               child: Container(
                 decoration: BoxDecoration(
@@ -64,7 +67,7 @@ class PodcastTile extends StatelessWidget {
                 padding: .all(NumberConstant.saveIconPadding),
                 child: SvgPicture.asset(AssetRes.icSave, colorFilter: .mode(isSaved ? AppColors.primaryColor : AppColors.mutedColor, .srcIn),),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
