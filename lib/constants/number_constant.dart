@@ -49,6 +49,11 @@ class NumberConstant {
   static const animNormalMs = 350;
   static const animStaggerMs = 80;
   static const animEntranceOffsetY = 16.0;
+  static const animListStaggerMs = 40;
+  static const animListStaggerCap = 5;
+  static const pressScale = 0.97;
+  static const savePopScale = 1.12;
+  static const chipSelectedScale = 1.04;
   static const welcomeMicFloatPx = 8.0;
   static const welcomeMicFloatMs = 2400;
   static const welcomeCtaPressScale = 0.96;

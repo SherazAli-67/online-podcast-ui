@@ -69,3 +69,52 @@ class _FadeSlideInState extends State<FadeSlideIn>
     );
   }
 }
+
+/// Scales slightly while pressed. Use for cards, tiles, and chips.
+class PressScale extends StatefulWidget {
+  const PressScale({
+    super.key,
+    required this.child,
+    this.onTap,
+    this.pressedScale = NumberConstant.pressScale,
+  });
+
+  final Widget child;
+  final VoidCallback? onTap;
+  final double pressedScale;
+
+  @override
+  State<PressScale> createState() => _PressScaleState();
+}
+
+class _PressScaleState extends State<PressScale> {
+  bool _pressed = false;
+
+  void _setPressed(bool value) {
+    if (_pressed == value) return;
+    setState(() => _pressed = value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: widget.onTap == null ? null : (_) => _setPressed(true),
+      onTapCancel: widget.onTap == null ? null : () => _setPressed(false),
+      onTapUp: widget.onTap == null ? null : (_) => _setPressed(false),
+      onTap: widget.onTap,
+      child: AnimatedScale(
+        scale: _pressed ? widget.pressedScale : 1,
+        duration: const Duration(milliseconds: NumberConstant.animFastMs),
+        curve: Curves.easeOutCubic,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+/// Shared-element tag for podcast cover art across Discover / Profile / Player.
+String podcastCoverHeroTag(String id, {Object? suffix}) {
+  if (suffix == null) return 'podcast-cover-$id';
+  return 'podcast-cover-$id-$suffix';
+}

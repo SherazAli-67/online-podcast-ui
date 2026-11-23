@@ -9,6 +9,7 @@ import 'package:online_podcast_app_ui/core/app_textstyles.dart';
 import 'package:online_podcast_app_ui/core/asset_res.dart';
 import 'package:online_podcast_app_ui/core/models/podcast_model.dart';
 import 'package:online_podcast_app_ui/presentation/providers/discover_provider.dart';
+import 'package:online_podcast_app_ui/presentation/widgets/animated_entrance.dart';
 import 'package:online_podcast_app_ui/presentation/widgets/category_chip.dart';
 import 'package:online_podcast_app_ui/presentation/widgets/podcast_tile.dart';
 import 'package:online_podcast_app_ui/presentation/widgets/section_header.dart';
@@ -18,6 +19,11 @@ import 'package:provider/provider.dart';
 class DiscoverScreen extends StatelessWidget {
   const DiscoverScreen({super.key});
 
+  Duration _staggerDelay(int index) {
+    final capped = index.clamp(0, NumberConstant.animListStaggerCap);
+    return Duration(milliseconds: capped * NumberConstant.animListStaggerMs);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<DiscoverProvider>();
@@ -25,14 +31,25 @@ class DiscoverScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: .fromLTRB(NumberConstant.horizontalPadding, NumberConstant.headerGap, NumberConstant.horizontalPadding, 0),
+          padding: .fromLTRB(
+            NumberConstant.horizontalPadding,
+            NumberConstant.headerGap,
+            NumberConstant.horizontalPadding,
+            0,
+          ),
           child: Column(
             spacing: NumberConstant.headerGap,
             children: [
-              _buildHeader(context),
-              _buildSearchRow(provider),
-              _buildCategories(provider),
-              Expanded(child: _buildContent(context, provider),),
+              FadeSlideIn(child: _buildHeader(context)),
+              FadeSlideIn(
+                delay: const Duration(milliseconds: NumberConstant.animStaggerMs),
+                child: _buildSearchRow(provider),
+              ),
+              FadeSlideIn(
+                delay: const Duration(milliseconds: NumberConstant.animStaggerMs * 2),
+                child: _buildCategories(provider),
+              ),
+              Expanded(child: _buildContent(context, provider)),
               _buildBottomNav(context),
               _buildHomeIndicator(),
             ],
@@ -49,16 +66,22 @@ class DiscoverScreen extends StatelessWidget {
           onTap: () => context.go(NamedRoutes.welcome.routeName),
           child: Padding(
             padding: .all(NumberConstant.navIconPadding),
-            //icBack
-            child: SvgPicture.asset(AssetRes.icBack)
+            child: SvgPicture.asset(AssetRes.icBack),
           ),
         ),
-        //StringConst.discover
-        Expanded(child: Text(StringConst.discover, style: AppTextStyles.screenTitle, textAlign: .center,),),
+        Expanded(
+          child: Text(
+            StringConst.discover,
+            style: AppTextStyles.screenTitle,
+            textAlign: .center,
+          ),
+        ),
         Padding(
           padding: .all(NumberConstant.navIconPadding),
-          //icMore, whiteColor
-          child: SvgPicture.asset(AssetRes.icMore, colorFilter: .mode(Colors.white, .srcIn),)
+          child: SvgPicture.asset(
+            AssetRes.icMore,
+            colorFilter: .mode(Colors.white, .srcIn),
+          ),
         ),
       ],
     );
@@ -74,28 +97,36 @@ class DiscoverScreen extends StatelessWidget {
             style: AppTextStyles.searchHint.copyWith(color: AppColors.titleColor),
             cursorColor: AppColors.primaryColor,
             decoration: InputDecoration(
-              //StringConst.searchTopics
               hintText: StringConst.searchTopics,
               hintStyle: AppTextStyles.searchHint,
               filled: true,
-              //searchFillColor
               fillColor: AppColors.searchFillColor,
-              border: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
-              enabledBorder: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
-              focusedBorder: OutlineInputBorder(borderRadius: .circular(NumberConstant.searchRadius), borderSide: .none,),
-              contentPadding: .symmetric(horizontal: NumberConstant.searchFieldPadding, vertical: NumberConstant.searchFieldPadding),
+              border: OutlineInputBorder(
+                borderRadius: .circular(NumberConstant.searchRadius),
+                borderSide: .none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: .circular(NumberConstant.searchRadius),
+                borderSide: .none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: .circular(NumberConstant.searchRadius),
+                borderSide: .none,
+              ),
+              contentPadding: .symmetric(
+                horizontal: NumberConstant.searchFieldPadding,
+                vertical: NumberConstant.searchFieldPadding,
+              ),
             ),
           ),
         ),
         Container(
           decoration: BoxDecoration(
-            //primaryColor
             color: AppColors.primaryColor,
             borderRadius: .circular(NumberConstant.searchRadius),
           ),
           padding: .all(NumberConstant.searchButtonPadding),
-          //icSearch
-          child: SvgPicture.asset(AssetRes.icSearch)
+          child: SvgPicture.asset(AssetRes.icSearch),
         ),
       ],
     );
@@ -106,51 +137,93 @@ class DiscoverScreen extends StatelessWidget {
       scrollDirection: .horizontal,
       child: Row(
         spacing: NumberConstant.chipGap,
-        children: AppData.discoverCategories.map((category) => CategoryChip(
-          label: category,
-          isSelected: provider.selectedCategory == category,
-          onTap: () => provider.selectCategory(category),),
-        ).toList(),
+        children: AppData.discoverCategories
+            .map(
+              (category) => CategoryChip(
+                label: category,
+                isSelected: provider.selectedCategory == category,
+                onTap: () => provider.selectCategory(category),
+              ),
+            )
+            .toList(),
       ),
     );
   }
 
   Widget _buildContent(BuildContext context, DiscoverProvider provider) {
-    return ListView(
-      padding: .only(bottom: NumberConstant.headerGap),
-      children: [
-        Column(
-          spacing: NumberConstant.listGap,
-          crossAxisAlignment: .start,
-          children: [
-            SectionHeader(title: StringConst.popular,),
-            _buildPopularList(context, provider.popularPodcasts),
-            SectionHeader(title: StringConst.writing,),
-            ...provider.writingPodcasts.map((podcast) => PodcastTile(
-              podcast: podcast,
-              onTap: () => context.push(NamedRoutes.nowPlaying.withId(podcast.id)),
-            ),),
-          ],
+    final filterKey =
+        '${provider.selectedCategory}|${provider.searchQuery.trim().toLowerCase()}';
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: NumberConstant.animNormalMs),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, animation) => FadeTransition(
+        opacity: animation,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.04),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
         ),
-      ],
+      ),
+      child: ListView(
+        key: ValueKey(filterKey),
+        padding: .only(bottom: NumberConstant.headerGap),
+        children: [
+          Column(
+            spacing: NumberConstant.listGap,
+            crossAxisAlignment: .start,
+            children: [
+              const SectionHeader(title: StringConst.popular),
+              _buildPopularList(context, provider.popularPodcasts),
+              const SectionHeader(title: StringConst.writing),
+              ...provider.writingPodcasts.asMap().entries.map((entry) {
+                final index = entry.key;
+                final podcast = entry.value;
+                return FadeSlideIn(
+                  delay: _staggerDelay(index),
+                  child: PodcastTile(
+                    podcast: podcast,
+                    heroTag: podcastCoverHeroTag(podcast.id, suffix: index),
+                    onTap: () => context.push(
+                      NamedRoutes.nowPlaying.withId(podcast.id),
+                    ),
+                  ),
+                );
+              }),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildPopularList(BuildContext context, List<PodcastModel> podcasts) {
-    final cardWidth = MediaQuery.sizeOf(context).width * NumberConstant.popularCardWidthFactor;
+    final cardWidth =
+        MediaQuery.sizeOf(context).width * NumberConstant.popularCardWidthFactor;
     return SizedBox(
       height: cardWidth / NumberConstant.popularCoverAspectRatio + 88,
       child: ListView.separated(
         scrollDirection: .horizontal,
         itemCount: podcasts.length,
-        separatorBuilder: (_, _) => const SizedBox(width: NumberConstant.popularCardGap),
-        itemBuilder: (_, index) => _buildPopularCard(context, podcasts[index], cardWidth),
+        separatorBuilder: (_, _) =>
+            const SizedBox(width: NumberConstant.popularCardGap),
+        itemBuilder: (_, index) => FadeSlideIn(
+          delay: _staggerDelay(index),
+          child: _buildPopularCard(context, podcasts[index], cardWidth),
+        ),
       ),
     );
   }
 
-  Widget _buildPopularCard(BuildContext context, PodcastModel podcast, double width) {
-    return GestureDetector(
+  Widget _buildPopularCard(
+    BuildContext context,
+    PodcastModel podcast,
+    double width,
+  ) {
+    return PressScale(
       onTap: () => context.push(NamedRoutes.nowPlaying.withId(podcast.id)),
       child: SizedBox(
         width: width,
@@ -160,24 +233,38 @@ class DiscoverScreen extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: NumberConstant.popularCoverAspectRatio,
-              child: ClipRRect(
-                borderRadius: .circular(NumberConstant.coverRadius),
-                //podcast.cover
-                child: Image.asset(podcast.cover, fit: .cover,)
+              child: Hero(
+                tag: podcastCoverHeroTag(podcast.id),
+                child: ClipRRect(
+                  borderRadius: .circular(NumberConstant.coverRadius),
+                  child: Image.asset(podcast.cover, fit: .cover),
+                ),
               ),
             ),
             Row(
               spacing: 6,
               children: [
-                SvgPicture.asset(AssetRes.icHeadphones, colorFilter: .mode(AppColors.primaryColor, .srcIn),),
-                //podcast.listened, meta
-                Expanded(child: Text(podcast.listened, style: AppTextStyles.meta,)),
+                SvgPicture.asset(
+                  AssetRes.icHeadphones,
+                  colorFilter: .mode(AppColors.primaryColor, .srcIn),
+                ),
+                Expanded(
+                  child: Text(podcast.listened, style: AppTextStyles.meta),
+                ),
               ],
             ),
-            //podcast.title, cardTitle,
-            Text(podcast.title, style: AppTextStyles.cardTitle, maxLines: 1, overflow: .ellipsis,),
-            //podcast.author
-            Text(podcast.author, style: AppTextStyles.meta, maxLines: 1, overflow: .ellipsis,),
+            Text(
+              podcast.title,
+              style: AppTextStyles.cardTitle,
+              maxLines: 1,
+              overflow: .ellipsis,
+            ),
+            Text(
+              podcast.author,
+              style: AppTextStyles.meta,
+              maxLines: 1,
+              overflow: .ellipsis,
+            ),
           ],
         ),
       ),
@@ -194,7 +281,10 @@ class DiscoverScreen extends StatelessWidget {
             onTap: () => context.go(NamedRoutes.welcome.routeName),
             child: Padding(
               padding: .all(NumberConstant.navIconPadding),
-              child: SvgPicture.asset(AssetRes.icHome, colorFilter: .mode(AppColors.whiteColor, .srcIn),),
+              child: SvgPicture.asset(
+                AssetRes.icHome,
+                colorFilter: .mode(AppColors.whiteColor, .srcIn),
+              ),
             ),
           ),
           Padding(
@@ -203,13 +293,19 @@ class DiscoverScreen extends StatelessWidget {
           ),
           Padding(
             padding: .all(NumberConstant.navIconPadding),
-            child: SvgPicture.asset(AssetRes.icBookmarkNav, colorFilter: .mode(AppColors.whiteColor, .srcIn),),
+            child: SvgPicture.asset(
+              AssetRes.icBookmarkNav,
+              colorFilter: .mode(AppColors.whiteColor, .srcIn),
+            ),
           ),
           GestureDetector(
             onTap: () => context.push(NamedRoutes.profile.routeName),
             child: Padding(
               padding: .all(NumberConstant.navIconPadding),
-              child: SvgPicture.asset(AssetRes.icUser, colorFilter: .mode(AppColors.whiteColor, .srcIn),),
+              child: SvgPicture.asset(
+                AssetRes.icUser,
+                colorFilter: .mode(AppColors.whiteColor, .srcIn),
+              ),
             ),
           ),
         ],
